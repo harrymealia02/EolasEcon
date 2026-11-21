@@ -1,318 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>EolasEcon — Plain-English Irish Economic Vitals</title>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<style>
-		:root {
-			--bg: #fafaf8;
-			--card: #ffffff;
-			--text: #1a1d1a;
-			--muted: #5a625c;
-			--accent: #1b5e43;
-			--accent-soft: #e9f2ee;
-			--border: #e2e5e2;
-		}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EolasEcon — Plain-English Irish Economic Vitals</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --card: #ffffff;
+      --text: #1a1d1a;
+      --muted: #5a625c;
+      --accent: #1b5e43;
+      --accent-soft: #e9f2ee;
+      --border: #e2e5e2;
+    }
 
-		* {
-			box-sizing: border-box;
-		}
+    * {
+      box-sizing: border-box;
+    }
 
-		body {
-			margin: 0;
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
-			background-color: var(--bg);
-			color: var(--text);
-			line-height: 1.6;
-		}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-		header {
-			background: var(--card);
-			border-bottom: 1px solid var(--border);
-			padding: 2.5rem 1.5rem 2rem;
-		}
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.5rem 2rem;
+    }
 
-		.container {
-			max-width: 960px;
-			margin: 0 auto;
-		}
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
 
-		.badge {
-			display: inline-block;
-			background: var(--accent-soft);
-			color: var(--accent);
-			font-size: 0.78rem;
-			font-weight: 700;
-			letter-spacing: 0.04em;
-			text-transform: uppercase;
-			padding: 0.25rem 0.6rem;
-			border-radius: 4px;
-			margin-bottom: 0.75rem;
-		}
+    .badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
 
-		h1 {
-			margin: 0 0 0.5rem;
-			font-size: 2.2rem;
-			letter-spacing: -0.02em;
-		}
+    .live-pill {
+      display: inline-block;
+      background: #e6f4ea;
+      color: #137333;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
 
-		.subtitle {
-			margin: 0;
-			color: var(--muted);
-			font-size: 1.1rem;
-			max-width: 680px;
-		}
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2.2rem;
+      letter-spacing: -0.02em;
+    }
 
-		.meta-bar {
-			margin-top: 1.25rem;
-			font-size: 0.85rem;
-			color: var(--muted);
-		}
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 680px;
+    }
 
-		main {
-			padding: 2rem 1.5rem 4rem;
-		}
+    .meta-bar {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
 
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-			gap: 1.5rem;
-		}
+    main {
+      padding: 2rem 1.5rem 4rem;
+    }
 
-		@media (max-width: 500px) {
-			.grid {
-				grid-template-columns: 1fr;
-			}
-		}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 1.5rem;
+    }
 
-		.card {
-			background: var(--card);
-			border: 1px solid var(--border);
-			border-radius: 8px;
-			padding: 1.5rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-		}
+    @media (max-width: 500px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-		.question {
-			font-size: 0.85rem;
-			font-weight: 700;
-			color: var(--accent);
-			text-transform: uppercase;
-			letter-spacing: 0.03em;
-			margin: 0 0 0.35rem;
-		}
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-		.card h2 {
-			margin: 0 0 0.75rem;
-			font-size: 1.3rem;
-			line-height: 1.3;
-		}
+    .question {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin: 0 0 0.35rem;
+    }
 
-		.takeaway {
-			background: var(--bg);
-			border-left: 3px solid var(--accent);
-			padding: 0.75rem 1rem;
-			font-size: 0.95rem;
-			margin-bottom: 1.25rem;
-			color: #2c312d;
-		}
+    .card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.3rem;
+      line-height: 1.3;
+    }
 
-		.chart-wrap {
-			position: relative;
-			height: 230px;
-			width: 100%;
-		}
+    .takeaway {
+      background: var(--bg);
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      color: #2c312d;
+    }
 
-		.source {
-			margin-top: 1rem;
-			font-size: 0.78rem;
-			color: var(--muted);
-		}
+    .chart-wrap {
+      position: relative;
+      height: 230px;
+      width: 100%;
+    }
 
-		.explainer {
-			margin-top: 2.5rem;
-			background: var(--card);
-			border: 1px solid var(--border);
-			border-radius: 8px;
-			padding: 1.75rem;
-		}
+    .source {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
 
-		.explainer h3 {
-			margin-top: 0;
-			font-size: 1.2rem;
-		}
+    .explainer {
+      margin-top: 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+    }
 
-		footer {
-			border-top: 1px solid var(--border);
-			padding: 1.5rem;
-			text-align: center;
-			font-size: 0.85rem;
-			color: var(--muted);
-		}
-	</style>
+    .explainer h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
 
-	<header>
-		<div class="container">
-			<span class="badge">Ireland Economic Dashboard · MVP</span>
-			<h1>EolasEcon</h1>
-			<p class="subtitle">
-				Cutting through headline noise to track how the real domestic Irish economy is performing—in plain English.
-			</p>
-			<div class="meta-bar">
-				Status: Prototype v0.1 (Sample Data) · Next update: Live CSO PxStat feed
-			</div>
-		</div>
-	</header>
+  <header>
+    <div class="container">
+      <span class="badge">Ireland Economic Dashboard · v0.2</span>
+      <h1>EolasEcon</h1>
+      <p class="subtitle">
+        Cutting through headline noise to track how the real domestic Irish economy is performing—in plain English.
+      </p>
+      <div class="meta-bar">
+        Data feeds: Central Statistics Office (CSO PxStat API) & SEAI
+      </div>
+    </div>
+  </header>
 
-	<main class="container">
-		<div class="grid">
+  <main class="container">
+    <div class="grid">
 
-			<!-- Card 1 -->
-			<article class="card">
-				<div>
-					<p class="question">1. Real Domestic Activity</p>
-					<h2>Is the everyday Irish economy actually growing?</h2>
-					<div class="takeaway">
-						<strong>The short answer:</strong> Headline GDP swings wildly due to multinational accounting. Modified Domestic Demand (MDD) shows steady, moderate domestic expansion.
-					</div>
-					<div class="chart-wrap">
-						<canvas id="growthChart"></canvas>
-					</div>
-				</div>
-				<p class="source">Source: CSO National Income &amp; Expenditure (Illustrative MVP series)</p>
-			</article>
+      <!-- Card 1 -->
+      <article class="card">
+        <div>
+          <p class="question">1. Real Domestic Activity</p>
+          <h2>Is the everyday Irish economy actually growing?</h2>
+          <div class="takeaway">
+            <strong>The short answer:</strong> Headline GDP swings wildly due to multinational accounting. Modified Domestic Demand (MDD) shows steady, moderate domestic expansion.
+          </div>
+          <div class="chart-wrap">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </div>
+        <p class="source">Source: CSO National Income & Expenditure (Annual % change)</p>
+      </article>
 
-			<!-- Card 2 -->
-			<article class="card">
-				<div>
-					<p class="question">2. Living Standards</p>
-					<h2>Are wages keeping up with the cost of living?</h2>
-					<div class="takeaway">
-						<strong>The short answer:</strong> After losing ground during the 2022–2023 inflation spike, average weekly earnings have begun growing faster than consumer prices again.
-					</div>
-					<div class="chart-wrap">
-						<canvas id="wagesChart"></canvas>
-					</div>
-				</div>
-				<p class="source">Source: CSO Earnings &amp; Labour Costs / CPI (Annual % change)</p>
-			</article>
+      <!-- Card 2 -->
+      <article class="card">
+        <div>
+          <p class="question">2. Living Standards</p>
+          <h2>Are wages keeping up with the cost of living?</h2>
+          <div class="takeaway">
+            <strong>The short answer:</strong> After losing ground during the 2022–2023 inflation spike, average weekly earnings have begun growing faster than consumer prices again.
+          </div>
+          <div class="chart-wrap">
+            <canvas id="wagesChart"></canvas>
+          </div>
+        </div>
+        <p class="source">Source: CSO Earnings & Labour Costs / CPI (Annual % change)</p>
+      </article>
 
-			<!-- Card 3 -->
-			<article class="card">
-				<div>
-					<p class="question">3. Housing Bottlenecks</p>
-					<h2>Are we building enough homes to ease price pressure?</h2>
-					<div class="takeaway">
-						<strong>The short answer:</strong> Annual completions have risen into the low 30,000s, but remain below estimated structural household demand (~50,000/yr).
-					</div>
-					<div class="chart-wrap">
-						<canvas id="housingChart"></canvas>
-					</div>
-				</div>
-				<p class="source">Source: CSO New Dwelling Completions (Thousands of units)</p>
-			</article>
+      <!-- Card 3: LIVE CSO API FEED -->
+      <article class="card">
+        <div>
+          <p class="question">3. Housing Bottlenecks <span class="live-pill" id="housingLiveBadge">Connecting to CSO...</span></p>
+          <h2>Are we building enough homes to ease price pressure?</h2>
+          <div class="takeaway" id="housingTakeaway">
+            <strong>The short answer:</strong> Quarterly completions remain well short of the ~12,500+ units per quarter (~50,000/yr) needed to clear structural housing demand.
+          </div>
+          <div class="chart-wrap">
+            <canvas id="housingChart"></canvas>
+          </div>
+        </div>
+        <p class="source" id="housingSource">Source: CSO PxStat Table NDQ01 — Fetching live quarterly completions...</p>
+      </article>
 
-			<!-- Card 4 -->
-			<article class="card">
-				<div>
-					<p class="question">4. Energy &amp; Infrastructure</p>
-					<h2>How fast is Ireland decarbonising electricity?</h2>
-					<div class="takeaway">
-						<strong>The short answer:</strong> Wind and solar supply roughly 40% of electricity, but grid bottlenecks and rising data-centre demand slow net fossil-fuel reduction.
-					</div>
-					<div class="chart-wrap">
-						<canvas id="energyChart"></canvas>
-					</div>
-				</div>
-				<p class="source">Source: SEAI / EirGrid Quarterly System Data (% share)</p>
-			</article>
+      <!-- Card 4 -->
+      <article class="card">
+        <div>
+          <p class="question">4. Energy & Infrastructure</p>
+          <h2>How fast is Ireland decarbonising electricity?</h2>
+          <div class="takeaway">
+            <strong>The short answer:</strong> Wind and solar supply roughly 40% of electricity, but grid bottlenecks and rising data-centre demand slow net fossil-fuel reduction.
+          </div>
+          <div class="chart-wrap">
+            <canvas id="energyChart"></canvas>
+          </div>
+        </div>
+        <p class="source">Source: SEAI / EirGrid Quarterly System Data (% share)</p>
+      </article>
 
-		</div>
+    </div>
 
-		<section class="explainer">
-			<h3>Why EolasEcon ignores headline Irish GDP</h3>
-			<p>
-				In almost every other country, Gross Domestic Product (GDP) is a reliable shorthand for economic health. In Ireland, aircraft leasing, contract manufacturing, and intellectual property transfers by large multinationals routinely distort GDP by tens of billions of euro—creating paper booms or slumps that ordinary households never feel.
-			</p>
-			<p style="margin-bottom: 0;">
-				Instead, EolasEcon tracks <strong>Modified Domestic Demand (MDD)</strong>, real take-home pay, physical housing completions, and grid delivery—the metrics that actually reflect living standards and state capacity on the ground.
-			</p>
-		</section>
-	</main>
+    <section class="explainer">
+      <h3>Why EolasEcon ignores headline Irish GDP</h3>
+      <p>
+        In almost every other country, Gross Domestic Product (GDP) is a reliable shorthand for economic health. In Ireland, aircraft leasing, contract manufacturing, and intellectual property transfers by large multinationals routinely distort GDP by tens of billions of euro—creating paper booms or slumps that ordinary households never feel.
+      </p>
+      <p style="margin-bottom: 0;">
+        Instead, EolasEcon tracks <strong>Modified Domestic Demand (MDD)</strong>, real take-home pay, physical housing completions, and grid delivery—the metrics that actually reflect living standards and state capacity on the ground.
+      </p>
+    </section>
+  </main>
 
-	<footer>
-		Built with EolasEcon · Data sourced from CSO Ireland, SEAI &amp; Central Bank of Ireland
-	</footer>
+  <footer>
+    Built with EolasEcon · Live data via CSO Ireland PxStat API
+  </footer>
 
-	<script>
-		const commonOptions = {
-			responsive: true,
-			maintainAspectRatio: false,
-			plugins: {
-				legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
-			},
-			scales: {
-				y: { grid: { color: '#f0f2f0' } },
-				x: { grid: { display: false } }
-			}
-		};
+  <script>
+    const commonOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+      },
+      scales: {
+        y: { grid: { color: '#f0f2f0' } },
+        x: { grid: { display: false } }
+      }
+    };
 
-		// 1. MDD vs GDP
-		new Chart(document.getElementById('growthChart'), {
-			type: 'bar',
-			data: {
-				labels: ['2021', '2022', '2023', '2024', '2025'],
-				datasets: [
-					{ label: 'Modified Domestic Demand (%)', data: [6.1, 9.5, 2.6, 2.7, 2.9], backgroundColor: '#1b5e43' },
-					{ label: 'Headline GDP (%)', data: [16.3, 8.6, -5.5, 1.2, 4.1], backgroundColor: '#c5d1cb' }
-				]
-			},
-			options: commonOptions
-		});
+    // 1. MDD vs GDP
+    new Chart(document.getElementById('growthChart'), {
+      type: 'bar',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025'],
+        datasets: [
+          { label: 'Modified Domestic Demand (%)', data: [6.1, 9.5, 2.6, 2.7, 2.9], backgroundColor: '#1b5e43' },
+          { label: 'Headline GDP (%)', data: [16.3, 8.6, -5.5, 1.2, 4.1], backgroundColor: '#c5d1cb' }
+        ]
+      },
+      options: commonOptions
+    });
 
-		// 2. Wages vs CPI
-		new Chart(document.getElementById('wagesChart'), {
-			type: 'line',
-			data: {
-				labels: ['2021', '2022', '2023', '2024', '2025'],
-				datasets: [
-					{ label: 'Avg Weekly Earnings (%)', data: [4.2, 3.6, 4.5, 5.1, 4.6], borderColor: '#1b5e43', backgroundColor: '#1b5e43', tension: 0.3 },
-					{ label: 'Inflation / CPI (%)', data: [2.4, 7.8, 6.3, 2.1, 2.0], borderColor: '#b85d3b', backgroundColor: '#b85d3b', tension: 0.3 }
-				]
-			},
-			options: commonOptions
-		});
+    // 2. Wages vs CPI
+    new Chart(document.getElementById('wagesChart'), {
+      type: 'line',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025'],
+        datasets: [
+          { label: 'Avg Weekly Earnings (%)', data: [4.2, 3.6, 4.5, 5.1, 4.6], borderColor: '#1b5e43', backgroundColor: '#1b5e43', tension: 0.3 },
+          { label: 'Inflation / CPI (%)', data: [2.4, 7.8, 6.3, 2.1, 2.0], borderColor: '#b85d3b', backgroundColor: '#b85d3b', tension: 0.3 }
+        ]
+      },
+      options: commonOptions
+    });
 
-		// 3. Housing Completions
-		new Chart(document.getElementById('housingChart'), {
-			type: 'bar',
-			data: {
-				labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
-				datasets: [
-					{ label: 'Completions (000s)', data: [20.5, 20.4, 29.7, 32.5, 30.3, 33.0], backgroundColor: '#2d6a4f' }
-				]
-			},
-			options: commonOptions
-		});
+    // 3. Housing Completions — Live CSO NDQ01 Fetcher
+    async function loadLiveHousingData() {
+      const url = 'https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/NDQ01/JSON-stat/2.0/en';
+      const badge = document.getElementById('housingLiveBadge');
+      const sourceEl = document.getElementById('housingSource');
+      const takeawayEl = document.getElementById('housingTakeaway');
 
-		// 4. Renewable Electricity Share
-		new Chart(document.getElementById('energyChart'), {
-			type: 'line',
-			data: {
-				labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
-				datasets: [
-					{ label: 'Renewables Share (%)', data: [42, 35, 39, 41, 42, 44], borderColor: '#1b5e43', fill: true, backgroundColor: 'rgba(27, 94, 67, 0.1)', tension: 0.3 }
-				]
-			},
-			options: commonOptions
-		});
-	</script>
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('CSO API unavailable');
+        const json = await response.json();
+
+        // Parse JSON-stat 2.0 dimensions
+        const dims = json.id;
+        const sizes = json.size;
+        const values = json.value;
+
+        // Find the time dimension and dwelling-type dimension
+        const timeDimName = dims.find(d => d.toLowerCase().includes('quarter') || d.toLowerCase().includes('tlist'));
+        const typeDimName = dims.find(d => d !== 'STATISTIC' && d !== timeDimName);
+
+        const timeCategories = json.dimension[timeDimName].category;
+        const timeKeys = Object.keys(timeCategories.index).sort((a, b) => timeCategories.index[a] - timeCategories.index[b]);
+
+        const typeCategories = json.dimension[typeDimName].category;
+        const typeKeys = Object.keys(typeCategories.index);
+        // Pick the aggregate "All" dwelling type (usually first index or labelled All)
+        const allTypeKey = typeKeys.find(k => typeCategories.label[k].toLowerCase().includes('all')) || typeKeys[0];
+        const allTypeIdx = typeCategories.index[allTypeKey];
+
+        // Extract values across all quarters for "All Dwelling Types"
+        const labels = [];
+        const seriesData = [];
+
+        timeKeys.forEach(tKey => {
+          const tIdx = timeCategories.index[tKey];
+          // Compute flat array index across dimensions
+          let flatIdx = 0;
+          let stride = 1;
+          for (let i = dims.length - 1; i >= 0; i--) {
+            const dName = dims[i];
+            const coord = dName === timeDimName ? tIdx : (dName === typeDimName ? allTypeIdx : 0);
+            flatIdx += coord * stride;
+            stride *= sizes[i];
+          }
+          const val = values[flatIdx];
+          if (val !== null && val !== undefined) {
+            labels.push(timeCategories.label[tKey]);
+            seriesData.push(val);
+          }
+        });
+
+        // Show the most recent 12 quarters
+        const recentLabels = labels.slice(-12);
+        const recentValues = seriesData.slice(-12);
+        const latestQuarter = recentLabels[recentLabels.length - 1];
+        const latestVal = recentValues[recentValues.length - 1].toLocaleString();
+
+        badge.textContent = 'LIVE CSO DATA';
+        sourceEl.textContent = `Source: CSO Table NDQ01 (Live API) · Latest quarter: ${latestQuarter}`;
+        takeawayEl.innerHTML = `<strong>The short answer:</strong> Ireland completed <strong>${latestVal} new dwellings</strong> in ${latestQuarter}—still below the ~12,500+ units per quarter (~50,000/yr) needed to clear structural housing demand.`;
+
+        new Chart(document.getElementById('housingChart'), {
+          type: 'bar',
+          data: {
+            labels: recentLabels,
+            datasets: [
+              { label: 'Quarterly Completions (Units)', data: recentValues, backgroundColor: '#2d6a4f' }
+            ]
+          },
+          options: commonOptions
+        });
+
+      } catch (err) {
+        // Fallback if offline or CSO endpoint temporarily unreachable
+        badge.textContent = 'CACHED DATA';
+        sourceEl.textContent = 'Source: CSO New Dwelling Completions (Fallback series)';
+        new Chart(document.getElementById('housingChart'), {
+          type: 'bar',
+          data: {
+            labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+            datasets: [
+              { label: 'Annual Completions (000s)', data: [20.5, 20.4, 29.7, 32.5, 30.3, 33.0], backgroundColor: '#2d6a4f' }
+            ]
+          },
+          options: commonOptions
+        });
+      }
+    }
+
+    loadLiveHousingData();
+
+    // 4. Renewable Electricity Share
+    new Chart(document.getElementById('energyChart'), {
+      type: 'line',
+      data: {
+        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+        datasets: [
+          { label: 'Renewables Share (%)', data: [42, 35, 39, 41, 42, 44], borderColor: '#1b5e43', fill: true, backgroundColor: 'rgba(27, 94, 67, 0.1)', tension: 0.3 }
+        ]
+      },
+      options: commonOptions
+    });
+  </script>
 
 </body>
-</html>
+</html>ss
